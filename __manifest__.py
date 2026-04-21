@@ -23,4 +23,5 @@
         'views/product_product_view.xml',
         'views/catalogue_search.xml',
     ],
+    'post_init_hook': '_recompute_product_structure',
 }
