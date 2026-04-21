@@ -100,7 +100,7 @@
 
     <!-- ── Submenu: Estructuras de producto ── -->
     <menuitem id="menu_wb_catalogo_structure"
-              name="📐 Estructuras"
+              name="📐 Estructuras vendibles"
               parent="menu_wb_catalogo_root"
               sequence="20"/>
 

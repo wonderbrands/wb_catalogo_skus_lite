@@ -14,7 +14,7 @@
     """,
     'author': "Sergio Guerrero",
     'category': 'Inventory',
-    'version': '18.0.1.0',
+    'version': '18.0.2.0',
     'depends': ['base', 'product', 'stock', 'mrp'],
     'application': True,
     'sequence': 10,
