@@ -12,7 +12,7 @@
     </record>
 
     <record id="action_wb_product_variant_sellable" model="ir.actions.act_window">
-        <field name="name">Productos Vendibles (Yuju)</field>
+        <field name="name">Productos vendibles</field>
         <field name="res_model">product.product</field>
         <field name="view_mode">kanban,list,form</field>
         <field name="domain">[('data_entity_type', '=', 'salable_yuju')]</field>
@@ -26,15 +26,15 @@
     </record>
 
     <record id="action_wb_product_variant_internal" model="ir.actions.act_window">
-        <field name="name">Consumibles Internos</field>
+        <field name="name">Consumibles internos</field>
         <field name="res_model">product.product</field>
         <field name="view_mode">kanban,list,form</field>
         <field name="domain">[('data_entity_type', '=', 'internal_consu')]</field>
     </record>
 
-    <!-- Acción: Solo productos simples (1:1) -->
+    <!-- Acción: Solo productos simples -->
     <record id="action_wb_product_variant_simple" model="ir.actions.act_window">
-        <field name="name">Productos Simples (1:1)</field>
+        <field name="name">Productos simples</field>
         <field name="res_model">product.product</field>
         <field name="view_mode">kanban,list,form</field>
         <field name="domain">[('product_structure', '=', 'simple')]</field>
@@ -42,7 +42,7 @@
 
     <!-- Acción: Combos reales -->
     <record id="action_wb_product_variant_combo" model="ir.actions.act_window">
-        <field name="name">Combos Reales</field>
+        <field name="name">Combos</field>
         <field name="res_model">product.product</field>
         <field name="view_mode">kanban,list,form</field>
         <field name="domain">[('product_structure', '=', 'combo')]</field>
@@ -105,12 +105,12 @@
               sequence="20"/>
 
     <menuitem id="menu_wb_variant_simple"
-              name="Simples (1:1)"
+              name="Simples"
               parent="menu_wb_catalogo_structure"
               action="action_wb_product_variant_simple"
               sequence="1"/>
     <menuitem id="menu_wb_variant_combo"
-              name="Combos Reales"
+              name="Combos"
               parent="menu_wb_catalogo_structure"
               action="action_wb_product_variant_combo"
               sequence="2"/>

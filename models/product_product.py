@@ -111,17 +111,17 @@ class ProductProduct(models.Model):
     # Clasificación informativa de la estructura del vendible
     product_structure = fields.Selection(
         selection=[
-            ('simple', 'Simple (1:1)'),
-            ('combo', 'Combo Real'),
+            ('simple', 'Simple'),
+            ('combo', 'Combo'),
             ('multibox', 'Multicaja'),
         ],
         string="Estructura de Producto",
         compute="_compute_product_structure",
         store=True,
         help="Clasificación informativa basada en la BoM.\n"
-             "Simple: sin BoM o BoM 1:1.\n"
-             "Combo: BoM con componentes vendibles.\n"
-             "Multicaja: BoM con componentes storable tipo #BOX.",
+             "Simple: sin BoM, BoM vacía, o BoM 1:1 (un componente qty=1).\n"
+             "Combo: BoM con múltiples componentes sin patrón #BOX.\n"
+             "Multicaja: BoM con componentes cuyo SKU sigue patrón #BOX/#CAJA/#PKG.",
     )
 
     _sql_constraints = [
@@ -132,6 +132,7 @@ class ProductProduct(models.Model):
 
     # ── COMPUTE: product_structure ────────────────────────────────────────
     # Analiza la BoM Phantom del vendible para clasificar su estructura.
+    # Único criterio multibox vs combo: patrón #BOX en SKU de componentes.
     # Solo aplica a salable_yuju; storables e internal_consu quedan en False.
 
     @api.depends(
@@ -154,20 +155,17 @@ class ProductProduct(models.Model):
                 continue
 
             lines = bom.bom_line_ids
-            num_lines = len(lines)
+            
+            logging.info(f'\n\n BOM {bom} ---- {lines}\n\n')
 
-            # BoM con un solo componente storable y qty=1 → simple
-            if num_lines == 1 and lines[0].product_qty == 1:
-                component = lines[0].product_id
-                if component.data_entity_type == 'storable':
-                    record.product_structure = 'simple'
-                    continue
+            # BoM con un solo componente y qty=1 → simple (1:1)
+            if len(lines) == 1 and lines[0].product_qty == 1:
+                record.product_structure = 'simple'
+                continue
 
-            # Analizar componentes para distinguir combo vs multibox
-            has_salable_components = any(
-                line.product_id.data_entity_type == 'salable_yuju'
-                for line in lines
-            )
+            # Único criterio: si algún componente tiene SKU #BOX → multibox
+            
+            logging.info(f'\n\n BOM {lines[0].product_id.default_code} ---- {record.default_code}\n\n')
             has_box_components = any(
                 self._is_box_sku(line.product_id.default_code, record.default_code)
                 for line in lines
@@ -175,15 +173,8 @@ class ProductProduct(models.Model):
 
             if has_box_components:
                 record.product_structure = 'multibox'
-            elif has_salable_components:
-                record.product_structure = 'combo'
             else:
-                # Storables sin patrón #BOX: multibox si hay varios,
-                # simple si es 1:1
-                if num_lines > 1 or any(l.product_qty > 1 for l in lines):
-                    record.product_structure = 'multibox'
-                else:
-                    record.product_structure = 'simple'
+                record.product_structure = 'combo'
 
     # ── Helpers ───────────────────────────────────────────────────────────
 
@@ -199,7 +190,7 @@ class ProductProduct(models.Model):
             '&',
                 ('product_id', '=', False),
                 ('product_tmpl_id', '=', product.product_tmpl_id.id),
-        ], limit=1)
+        ])
 
     @staticmethod
     def _is_box_sku(component_sku, parent_sku):
