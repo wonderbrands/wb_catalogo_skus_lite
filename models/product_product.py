@@ -22,7 +22,7 @@ _logger = logging.getLogger(__name__)
 #
 # Todo funciona exactamente igual que el nativo Odoo + Yuju.
 # Los campos son puramente informativos para navegación y reporteo.
-
+# -------
 # ══════════════════════════════════════════════════════════════════════════
 
 
