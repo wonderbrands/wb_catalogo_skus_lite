@@ -56,6 +56,13 @@
         <field name="domain">[('product_structure', '=', 'multibox')]</field>
     </record>
 
+    <record id="action_product_template" model="ir.actions.act_window">
+        <field name="name">Plantilla de producto</field>
+        <field name="res_model">product.template</field>
+        <field name="view_mode">kanban,list,form</field>
+    </record>
+
+
     <record id="action_portal_stock_url" model="ir.actions.act_url">
         <field name="name">Portal de stock</field>
         <field name="url">/stock</field>
@@ -120,11 +127,19 @@
               action="action_wb_product_variant_multibox"
               sequence="3"/>
 
+   <!--//////////Submenu: Product Template//////////-->
+    <menuitem id="menu_wb_product_template"
+              name="🚀 Plantilla de productos"
+              parent="menu_wb_catalogo_root"
+              action="action_product_template"
+              sequence="30"/>
+
     <menuitem id="menu_wb_catalogo_stock_portal"
               name="🌐 Portal de Stock"
               parent="menu_wb_catalogo_root"
               action="action_portal_stock_url"
-              sequence="30"/>
+              sequence="40"/>
+
 
     <!-- ══════════════════════════════════════════
          VISTA FORM — product.product
@@ -136,7 +151,18 @@
         <field name="model">product.product</field>
         <field name="inherit_id" ref="product.product_normal_form_view"/>
         <field name="arch" type="xml">
+            <xpath expr="//group[@name='group_lots_and_weight']" position="after">
+                <group string="Disponible para enivo a marketplace" name="marketplaces_inbound" colspan="4">
+                    <field name="data_is_available_for_meli_full"/>
+                    <field name="data_is_available_for_amazon_onsite"/>
+                    <field name="data_is_available_for_amazon_fba"/>
+                    <field name="data_is_available_for_walmart_wfs"/>
+                </group>
+            </xpath>
 
+            <xpath expr="//field[@name='packages_number']" position="after">
+                    <field name="sku_classification"/>
+            </xpath>
             <xpath expr="//field[@name='default_code']" position="after">
 
                 <!-- Rol del producto: badge con color por tipo -->
@@ -207,5 +233,4 @@
             </xpath>
         </field>
     </record>
-
 </odoo>

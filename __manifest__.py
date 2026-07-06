@@ -15,7 +15,7 @@
     'author': "Sergio Guerrero",
     'category': 'Inventory',
     'version': '18.0.2.0',
-    'depends': ['base', 'product', 'stock', 'mrp'],
+    'depends': ['base', 'product', 'stock', 'mrp','WB_data_product'],
     'application': True,
     'sequence': 10,
     'data': [

@@ -1,5 +1,9 @@
+from queue import Full
+
 from odoo import models, fields, api
 import logging
+
+from odoo.service.server import FSWatcherBase
 
 _logger = logging.getLogger(__name__)
 
@@ -70,6 +74,40 @@ class ProductProduct(models.Model):
 
     # ── Campos custom del catálogo ────────────────────────────────────────
 
+    data_is_available_for_meli_full = fields.Boolean(
+        string="Mercado Libre Full",
+        help="Indica si el producto está disponible y aprobado para ser enviado a las bodegas de Mercado Libre Full (Abastecimiento)."
+    )
+
+    data_is_available_for_amazon_onsite= fields.Boolean(
+        string="Amazon Onsite",
+        help="Indica si el producto cumple con los requisitos para ser enviado bajo el programa Amazon OnSite."
+    )
+
+    data_is_available_for_amazon_fba = fields.Boolean(
+        string="Amazon FBA",
+        help="Indica si el producto está listo y autorizado para ser enviado a los centros de distribución de Amazon FBA."
+    )
+
+    data_is_available_for_walmart_wfs = fields.Boolean(
+        string="Walmart WFS",
+        help="Indica si el producto está habilitado para ser enviado a las bodegas de Walmart Fulfillment Services (WFS)."
+    )
+
+    sku_classification = fields.Selection(
+        selection=[
+            ('combo', 'Combos'),
+            ('multi_box_combo', 'Combos de multi caja'),
+            ('multi_box_component', 'Componente de multicaja'),
+            ('mirror', 'Espejo'),
+            ('multi_box_mirror', 'Espejo de multi caja'),
+            ('multi_box', 'Multicaja'),
+            ('services_consumables', 'Servicios y consumibles'),
+            ('simple', 'Simple')
+        ],
+        string="Clasificación del SKU",
+        help="Define el tipo de clasificación logística o comercial para este SKU."
+    )
     data_product_id = fields.Char(
         string="Data Product ID",
         copy=False,
