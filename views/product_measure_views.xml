@@ -1,0 +1,68 @@
+<odoo>
+    <data>
+
+        <!-- ============================================================ -->
+        <!-- TIPO DE MEDIDA (product.measure.type): vistas, acción y menú -->
+        <!-- ============================================================ -->
+        <record id="view_product_measure_type_list" model="ir.ui.view">
+            <field name="name">product.measure.type.list</field>
+            <field name="model">product.measure.type</field>
+            <field name="arch" type="xml">
+                <list string="Tipos de Medida" editable="bottom">
+                    <field name="name"/>
+                    <field name="description"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="view_product_measure_type_form" model="ir.ui.view">
+            <field name="name">product.measure.type.form</field>
+            <field name="model">product.measure.type</field>
+            <field name="arch" type="xml">
+                <form string="Tipo de Medida">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="description"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_product_measure_type" model="ir.actions.act_window">
+            <field name="name">Tipos de medida</field>
+            <field name="res_model">product.measure.type</field>
+            <field name="view_mode">list,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Crea un nuevo Tipo de medida
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="menu_product_measure_type"
+                  name="Tipos de Medida"
+                  parent="stock.menu_stock_config_settings"
+                  action="action_product_measure_type"
+                  sequence="105"/>
+
+        <!-- ============================================================ -->
+        <!-- INYECCIÓN EN FORMULARIO DE PRODUCTO                          -->
+        <!-- ============================================================ -->
+        <record id="product_template_form_measure_type_inherit" model="ir.ui.view">
+            <field name="name">product.template.form.measure.type.inherit</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='categ_id']" position="after">
+                    <field name="measure_type_id" options="{'no_create': True, 'no_create_edit': True}"/>
+                </xpath>
+                <xpath expr="//field[@name='categ_id']" position="attributes">
+                    <attribute name="options">{'no_create': True, 'no_create_edit': True}</attribute>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

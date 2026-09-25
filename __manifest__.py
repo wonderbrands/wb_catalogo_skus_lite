@@ -14,14 +14,17 @@
     """,
     'author': "Sergio Guerrero",
     'category': 'Inventory',
-    'version': '18.0.2.0',
+    'version': '18.0.2.2',
     'depends': ['base', 'product', 'stock', 'mrp'],
     'application': True,
     'sequence': 10,
     'data': [
         'security/security.xml',
+        'security/ir.model.access.csv',
         'views/product_product_view.xml',
         'views/catalogue_search.xml',
+        'views/product_measure_views.xml',
+        'views/estatus_subestatus_views.xml',
     ],
     'post_init_hook': '_recompute_product_structure',
 }
