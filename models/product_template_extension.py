@@ -16,11 +16,11 @@ class ProductTemplate(models.Model):
     status_sequence = fields.Char(related='status.sequence', string='Secuencia')
     status_subsequence = fields.Char(related='substatus.subsequence', string='Subsecuencia')
 
-    # Enable tracking on packing measure fields if present
-    packing_length = fields.Float(tracking=True)
-    packing_height = fields.Float(tracking=True)
-    packing_width = fields.Float(tracking=True)
-    packing_weight = fields.Float(tracking=True)
+    # Enable tracking and definitions on packing measure fields
+    packing_length = fields.Float(string='Largo empaque', help="Largo del Empaque en centimetros", tracking=True)
+    packing_height = fields.Float(string='Alto empaque', help="Alto del Empaque en centimetros", tracking=True)
+    packing_width = fields.Float(string='Ancho empaque', help="Ancho del Empaque en centimetros", tracking=True)
+    packing_weight = fields.Float(string='Peso empaque', help="Peso del Empaque en centimetros", tracking=True)
 
     @api.onchange('packing_length', 'packing_height', 'packing_width', 'packing_weight')
     def _onchange_packing_measures_tracking(self):
