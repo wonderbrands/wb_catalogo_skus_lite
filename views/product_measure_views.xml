@@ -61,30 +61,6 @@
                 <xpath expr="//field[@name='categ_id']" position="attributes">
                     <attribute name="options">{'no_create': True, 'no_create_edit': True}</attribute>
                 </xpath>
-                <xpath expr="//group[@name='group_lots_and_weight']" position="after">
-                    <group string="Medidas de Empaque" name="group_packing_measures">
-                        <label for="packing_length"/>
-                        <div class="o_row" name="packing_length">
-                            <field name="packing_length"/>
-                            <span>cm</span>
-                        </div>
-                        <label for="packing_height"/>
-                        <div class="o_row" name="packing_height">
-                            <field name="packing_height"/>
-                            <span>cm</span>
-                        </div>
-                        <label for="packing_width"/>
-                        <div class="o_row" name="packing_width">
-                            <field name="packing_width"/>
-                            <span>cm</span>
-                        </div>
-                        <label for="packing_weight"/>
-                        <div class="o_row" name="packing_weight">
-                            <field name="packing_weight"/>
-                            <span>kg</span>
-                        </div>
-                    </group>
-                </xpath>
             </field>
         </record>
 
