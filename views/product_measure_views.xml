@@ -60,6 +60,9 @@
                         <field name="measure_type_id" options="{'no_create': True, 'no_create_edit': True}"/>
                     </group>
                 </xpath>
+                <xpath expr="//field[@name='packages_number']" position="after">
+                    <field name="sku_classification"/>
+                </xpath>
                 <xpath expr="//field[@name='categ_id']" position="attributes">
                     <attribute name="options">{'no_create': True, 'no_create_edit': True}</attribute>
                 </xpath>

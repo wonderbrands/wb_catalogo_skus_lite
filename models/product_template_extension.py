@@ -11,6 +11,21 @@ class ProductTemplate(models.Model):
         tracking=True
     )
 
+    sku_classification = fields.Selection(
+        selection=[
+            ('combo', 'Combos'),
+            ('multi_box_combo', 'Combos de multi caja'),
+            ('multi_box_component', 'Componente de multicaja'),
+            ('mirror', 'Espejo'),
+            ('multi_box_mirror', 'Espejo de multi caja'),
+            ('multi_box', 'Multicaja'),
+            ('services_consumables', 'Servicios y consumibles'),
+            ('simple', 'Simple')
+        ],
+        string="Clasificación del SKU",
+        help="Define el tipo de clasificación logística o comercial para este SKU."
+    )
+
     status = fields.Many2one('product.estatus', string='Estatus', help='Estatus del producto', tracking=True)
     substatus = fields.Many2one('product.subestatus', string='Subestatus', help='Subestatus del producto', tracking=True)
     status_sequence = fields.Char(related='status.sequence', string='Secuencia')
@@ -74,6 +89,11 @@ class ProductProduct(models.Model):
     measure_type_id = fields.Many2one(
         related='product_tmpl_id.measure_type_id',
         string='Tipo de medida',
+        readonly=False
+    )
+    sku_classification = fields.Selection(
+        related='product_tmpl_id.sku_classification',
+        string="Clasificación del SKU",
         readonly=False
     )
     status = fields.Many2one(related='product_tmpl_id.status', string='Estatus', readonly=False)
