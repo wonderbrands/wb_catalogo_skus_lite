@@ -175,6 +175,23 @@
                 <field name="storable_base_id"
                        invisible="data_entity_type != 'salable_yuju'"/>
 
+            <xpath expr="//group[@name='group_lots_and_weight']" position="before">
+                <group string="Clasificación del SKU">
+                    <field name="data_entity_type"
+                           string="Clasificación del SKU"
+                           widget="badge"
+                           decoration-success="data_entity_type == 'storable'"
+                           decoration-info="data_entity_type == 'salable_yuju'"
+                           decoration-warning="data_entity_type == 'internal_consu'"/>
+                    <field name="product_structure"
+                           string="Estructura del SKU"
+                           widget="badge"
+                           readonly="1"
+                           invisible="data_entity_type != 'salable_yuju'"
+                           decoration-info="product_structure == 'simple'"
+                           decoration-success="product_structure == 'combo'"
+                           decoration-warning="product_structure == 'multibox'"/>
+                </group>
             </xpath>
 
         </field>
