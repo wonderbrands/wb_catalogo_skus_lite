@@ -145,10 +145,6 @@ class ProductProduct(models.Model):
     )
     def _compute_product_structure(self):
         for record in self:
-            if record.data_entity_type != 'salable_yuju':
-                record.product_structure = False
-                continue
-
             bom = self._get_phantom_bom(record)
 
             if not bom or not bom.bom_line_ids:

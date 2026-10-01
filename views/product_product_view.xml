@@ -146,11 +146,10 @@
                        decoration-info="data_entity_type == 'salable_yuju'"
                        decoration-warning="data_entity_type == 'internal_consu'"/>
 
-                <!-- Estructura: solo visible para vendibles -->
+                <!-- Estructura -->
                 <field name="product_structure"
                        widget="badge"
                        readonly="1"
-                       invisible="data_entity_type != 'salable_yuju'"
                        decoration-info="product_structure == 'simple'"
                        decoration-success="product_structure == 'combo'"
                        decoration-warning="product_structure == 'multibox'"/>
@@ -188,7 +187,6 @@
                            string="Estructura del SKU"
                            widget="badge"
                            readonly="1"
-                           invisible="data_entity_type != 'salable_yuju'"
                            decoration-info="product_structure == 'simple'"
                            decoration-success="product_structure == 'combo'"
                            decoration-warning="product_structure == 'multibox'"/>
