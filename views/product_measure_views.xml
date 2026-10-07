@@ -58,7 +58,7 @@
                 <xpath expr="//group[@name='medidas_empaque']" position="inside">
                     <field name="measure_type_id" options="{'no_create': True, 'no_create_edit': True}"/>
                 </xpath>
-                <xpath expr="//field[@name='packages_number']" position="after">
+                <xpath expr="//group[@name='medidas_producto']//div[@name='product_volume']" position="after">
                     <field name="sku_classification"/>
                 </xpath>
                 <xpath expr="//field[@name='categ_id']" position="attributes">
